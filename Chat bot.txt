@@ -1,0 +1,194 @@
+667fc331781f4d4eb08a13355a648d3e
+
+https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b554721-20e6-4472-825b-1fdee48fc6cc?subscription-key=667fc331781f4d4eb08a13355a648d3e&staging=true&verbose=true&timezoneOffset=0&q=	
+
+
+
+LUIS : Language understanding Intelligence Service (part of MS Cognitive Service)
+used to create language understanding modules specific to our domain.
+English, chinese, spanish ,french language
+Just to interpret the human language and extract some important information
+ LUIS interprets user goals (intents) and distills valuable information from sentences (entities),
+ for a high quality, nuanced language model. LUIS integrates seamlessly with the Azure Bot Service, making it easy to create a sophisticated bot.
+ With LUIS you can take the messages written in natural language from your user, send it to LUIS and it will tell you what they mean. 
+ Then you can use what they actually meant to progress in the application.
+ 
+ 
+What is Bot ? Basically console application  
+	They accept messages,user inputs which, if they can understand them, they will call the relevant method or next step of the workflow,
+	and then usually give a message back to the user.
+
+	This is all well and good if you know exactly what the command is for the application to run the method you want it to.
+	
+Problem with Normal Bot.	
+	In most console applications, if you enter a command it doesn't understand, it will display a list of commands you can enter, 
+	with a description of what they are for.
+
+	You might be thinking nothing exciting or new here, and you would be right, until I tell you about how you can give your Bot Artificial Intelligence.
+	
+	Here Luis Come to the picture.
+	With LUIS you can take the messages written in natural language from your user, send it to LUIS and it will tell you what they mean.
+	Then you can use what they actually meant to progress in the application.
+	
+How does LUIS know what the user means?
+	we can train LUIS to understand many different ways of asking something. From what it has learned,
+	it has its best guess at what it thinks you meant, and gives scores of how sure it is against all of the possible intents that it has been trained on.
+	I created a demo for insurance self service. The user says something like, I want to make a payment, LUIS works out that they want to make a payment
+	so it returns back the intent I called MakePaymentToAccount. Now my console application can start asking the user for their card details etc.	
+	
+	--------------------------------------------
+	LUIS enables you to integrate natural language understanding into your chatbot or other application without having to create the complex part
+	of machine learning models.
+	Instead, you get to focus on your own application's logic and let LUIS do the heavy lifting.
+	--------------------------------------------
+	
+	For Developing LUIS APplication one may need to think about :
+		Intent : What all are person's input to the bot. What is person's intension ("Book flight ticket for Delhi") so intent will be "BookTicket" 
+		Enitity: Valuable information contained in the Intent. Here entity will be City name (Delhi)
+		Utterances: are input from the user that your app needs to interpret. To train LUIS to extract intents and entities from them,
+					it's important to capture a variety of different inputs for each intent.
+					Active learning, or the process of continuing to train on new utterances, is essential to machine-learned intelligence that 					LUIS provides.
+		Action : Action represent the behaviour that should take place when this intent get triggered on utterance.Each Action can have multiple 			 action parameters that are cosidered arguments for this action.
+
+	Different types of Entities:
+	1. Simple:just entity that specify single concept in terms of machine learning context
+		  Ex: Sachin Tendulakar wants to buy a pizza.
+		 	Intent - Buying pizza
+			Entity - Who
+			"<Customer> Wants to buy a pizza".
+	2. Hierarchical: Defines a category and its members in the form of parent-child relationship
+		Ex: "Search flights from Mumbai to Quatar"
+			Intent - Search flights
+			Location - Parent
+				FromLocationEntity - Mumbai (child)	
+				ToLocationEntity - Quatar (child)
+			"Search flights from <FromLocation> to <ToLocation>"	
+	3. Composite : made up of other entities
+		Ex: "Sachin Tendulkar wants to search flights from Mumbai to Quatar"	
+			Intent - Search flights
+			Entity - 
+				Customer - Sachin Tendulkar
+				FromLocationEntity - Mumbai
+				ToLocationEntity - Quatar
+			"<Customer> want to search flights from <FromLocation> to <ToLocation>"
+	4. List : Represents a fixed closed set of related words. Not machine learned, exact match. It utilizes synonyms
+		Ex: List Item: Mumbai
+		    Synonyms : Mumbai,Navi Mumbai, Bombay
+			"I want to fly to Bombay"
+			"I want to fly to New Mumbai"
+			
+	5. Regular Expression	
+	6. Prebuilt entities: 	Pre defined by microsoft
+		Number, Percentage, Ordinal, Email, Temperature, Url, Dimension, Phone number, Money, DateTime, Age
+	7. Prebuild Domains : 
+		Calendar, Camera, Music, Note, OnDevice, Communicaiton, Entertainment, Remainder,Events, Fitness, Taxi, Tv, Translate, Gaming etc
+	
+	
+ 
+MS Bot Framework : 
+	Build, connect, deploy, and manage intelligent bots to naturally interact with your users on a website,
+	app, Cortana, Microsoft Teams, Skype, Slack, Facebook Messenger, and more.
+
+Why Framework?	
+	We can create our own Bot without any framework, but MS Bot framework help to speed up the development.
+	BotFramework was created to allow bot application to be written once in .net or nodejs  and work in many different places (skype, FB messagenger, SMS)
+
+	The bot we develop using the Botframework will get called over HTTP, which makes it more accessible.
+	Microsoft have built some integrations for each of the different places(skype, messageer, calendar, office 365)so they can take input message,
+	send it via their protocol of TCP etc, go via the Botframework and communicate with your app via HTTP.
+	So they created an abstraction layer which makes things really simple.
+
+	
+	aka.ms/bt-bc-vstemplate : Bot framework template.
+	Download the template and paste in template folder of VS 2017 (C:\Users\pawan.wankhade\Documents\Visual Studio 2017\Templates\ProjectTemplates\Visual C#)
+	Bot Emulator : https://github.com/Microsoft/BotFramework-Emulator/releases 
+
+	1.	Create bot application and register it on dev.botframework.com/bot/new
+		Gerenarate AppId and password.
+		App Name : HelloBot
+		AppID : 3dff77ff-7ed8-4bf0-9dc5-674568101859
+		Password : lwsnDEME53$+szsTGK420=^
+	2.	Deploy our Bot to Azure API apps.(can be deployed on localhost dev/test,Azure App API service and Azure functions (Azure bot service))
+		
+	
+Azure Cognitive Services => Bot intelligence	
+	Services are divided in these categories : 
+	Vision, speech, Search, language, knowledge
+	
+Activities in BOt can be of anything : messages, conversationUpdate,typing, ping,deleteUserData,event, invoke etc..
+Activity of type message can be of anything : text,media attachment, Rich cards, suggested actions, speech etc..	
+Rich cards can be of any type: 	AdaptiveCard,AudioCard,VideoCard,HeroCard,ThumbnailCard,ReceiptCard etc/
+
+One message can contain multiple cards using attachment property. CardAction is used to process event within cards
+
+
+Dialogs : Dialogs used by bots to maintain the conversation. Tradition bots are made up of screens and bot are made up of Dialogs.Dialogs enable the bot developer to logically separate various areas of Bot functionality and guide conversation flow.
+Tradition App->Main Screen->ItemList Screen->OrderItem screen
+Bot 		 ->Main Dialog->ItemList Dialog->OrderItem Dialog
+
+Dialogs operates in Stack. Initially we have empty Dialog stack. First RootDialog initiated, then it invokes ItemList Dialog if required. Once ItemList dialog is initiated, it will recive all the messages sent by the user. THen ItemList dialog invokes OrderList Dialog.
+Every new messages sent by the user will be subject to processing by OrderItem Dialog until it closes or redirects to any other dialog. Bot framework SDK provides dialogs that we can use to model a conversation and manager conversation flow. Each dialog is an abstraction that encapsulates its own state in C# class that implements IDialog (public class RootDialog:IDialog<object>. BOt builder enables stateless bot hence no need to store session information on server side.
+
+Dialog Context (IDialogContext) : Provides access to the service that a dialog require to save state and communicate with the channel.
+The IDialogContext interface compromises 3 interfaces: 
+1.Internals.IBotData
+	context.Wait(),context.Done(),context.fail()
+	context.Forwarad(), context.Call()
+2.Internals.IBotToUser
+	context.PostAsync() : Used to send activity from bot to the User.Can be used instead of two methods that we used before SendConversation() and ReplyToActivity()
+3.Internals.IBotData
+context.UserData() : Userdata not related to specific COnversation
+context.PrivateConversationData() : Userdata related to specific COnversation
+context.ConversationData(): Genral data about this conversation.
+
+Serialization 
+The dialog stack and the state of all active dialogs are serialized to the per-user, per-conversation IBotDataBag
+The serialized blob is persisted in themessages that the bot send to and receives from the connector(Key/value)
+Dialog class must have the serializable attribute. 
+Conversation.SendAsync method is the key to implement dialogs. It construct and invokes the RootDialog and call its StartAsync method. 
+Dialog start : each time wheStartAsync method calls IDialogContext.Wait with the continuation delegate to specify the method that should be call when new message is received.
+DialogEnds : context.wait(),context.Done(),context.Fail(),context.Forward() or context.Call()
+
+
+
+
+ public string getEntityName(string json) //To get the entity name returned from LUIS API
+        {
+            string entityName = "", type="";
+            try
+            {
+                string result = "{items:" + json + "}";
+                JObject root = JObject.Parse(result);
+                JObject items = (JObject)root["items"];
+                JArray entities = (JArray)items["entities"];
+                JObject entity = (JObject)entities[0];
+                entityName = (string)entity["entity"];
+               // type = (string)entity["type"];
+            }
+            catch(Exception e)
+            {
+                return "error";
+            }
+            return entityName;
+        } 
+ 
+
+
+public string getIntentDetails(string json) //To get the Intent returned from LUIS API
+        {
+
+            string result = "{items:" + json + "}";
+            JObject root = JObject.Parse(result);
+            JObject items = (JObject)root["items"];
+            JObject topScoringIntent = (JObject)items["topScoringIntent"];
+            string intent = (string)topScoringIntent["intent"];
+                                  
+            return intent;
+        } 
+ 
+
+
+
+
+
+ 
